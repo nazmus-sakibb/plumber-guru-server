@@ -23,6 +23,7 @@ client.connect(err => {
   console.log('connection error', err);
   const serviceCollection = client.db("plumber").collection("services");
   const reviewCollection = client.db("plumber").collection("testimonials");
+  const bookingCollection = client.db("plumber").collection("bookings");
 
   app.get('/services', (req, res) => {
     serviceCollection.find()
@@ -34,6 +35,14 @@ client.connect(err => {
 
   app.get('/testimonials', (req, res) => {
     reviewCollection.find()
+    .toArray((err, items) => {
+      res.send(items);
+    })
+  })
+
+
+  app.get('/bookings', (req, res) => {
+    bookingCollection.find()
     .toArray((err, items) => {
       res.send(items);
     })
@@ -54,6 +63,17 @@ client.connect(err => {
     const newService = req.body;
     console.log('adding new product', newService);
     serviceCollection.insertOne(newService)
+      .then(result => {
+        console.log('inserted count', result.insertedCount);
+        res.send(result.insertedCount > 0);
+      })
+  })
+
+
+  app.post('/bookingList', (req, res) => {
+    const newBooking = req.body;
+    console.log('adding new product', newBooking);
+    bookingCollection.insertOne(newBooking)
       .then(result => {
         console.log('inserted count', result.insertedCount);
         res.send(result.insertedCount > 0);
