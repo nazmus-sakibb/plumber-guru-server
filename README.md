@@ -38,6 +38,6 @@ A MERN-Stack web app with dashboard where people can pick a service at a time an
 - MongoDB
 
 
-[Back-End Repository](https://github.com/sakibabir52/plumber-guru-client)
+[Front-End Repository](https://github.com/sakibabir52/plumber-guru-client)
 
 
